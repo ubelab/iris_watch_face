@@ -26,7 +26,6 @@
     <string name="deepspace">Deep space</string>
     <string name="bee">Cocktail on the beach</string>
     <string name="passion">Passion</string>
-    <string name="rockymountain">Black hole</string>
     <string name="sky">Sky</string>
     <string name="green_lawn">Green lawn</string>
     <string name="grass">Grass</string>
@@ -55,7 +54,6 @@
         <item>@string/deepspace</item>
         <item>@string/bee</item>
         <item>@string/passion</item>
-        <item>@string/rockymountain</item>
         <item>@string/sky</item>
         <item>@string/green_lawn</item>
         <item>@string/grass</item>

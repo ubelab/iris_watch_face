@@ -29,7 +29,6 @@ public class GradientsUtils {
         map.put("Deep space",18);
         map.put("Cocktail on the beach",19);
         map.put("Passion",20);
-        map.put("Black hole",21);
         map.put("Sky",22);
         map.put("Green lawn",23);
         map.put("Grass",24);
@@ -78,8 +77,6 @@ public class GradientsUtils {
             return ctx.getResources().getIntArray(R.array.bee_array);
         }else if (colorID == 20) {
             return ctx.getResources().getIntArray(R.array.passion_array);
-        }else if (colorID == 21) {
-            return ctx.getResources().getIntArray(R.array.black_hole_array);
         }else if (colorID == 22) {
             return ctx.getResources().getIntArray(R.array.sky_array);
         }else if (colorID == 23) {

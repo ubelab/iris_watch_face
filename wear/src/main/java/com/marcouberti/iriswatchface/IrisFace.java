@@ -62,6 +62,17 @@ public class IrisFace extends CanvasWatchFaceService {
      */
     private static final int MSG_UPDATE_TIME = 0;
 
+    private static final int BATTERY = 0;
+    private static final int DAY_NUMBER = 1;
+    private static final int DAY_WEEK = 2;
+    private static final int MONTH = 3;
+    private static final int YEAR = 4;
+    private static final int NONE = 5;
+
+    private int BOTTOM_COMPLICATION_MODE = BATTERY;
+    private int LEFT_COMPLICATION_MODE = DAY_WEEK;
+    private int RIGHT_COMPLICATION_MODE = DAY_NUMBER;
+
     Shader shader;
     int selectedGradient;
     Paint mBackgroundPaint;
@@ -120,14 +131,12 @@ public class IrisFace extends CanvasWatchFaceService {
             */
         }
 
-        int INFO_DETAILS_MODE = 0;
         @Override
         public void onTapCommand(@TapType int tapType, int x, int y, long eventTime) {
             switch (tapType) {
                 case WatchFaceService.TAP_TYPE_TAP:
-                    //switch between date infos
-                    if(INFO_DETAILS_MODE == 0) INFO_DETAILS_MODE =1;
-                    else INFO_DETAILS_MODE = 0;
+                    //detect screen area (CENTER_LEFT, CENTER_RIGHT, BOTTOM_CENTER)
+                    handleTouch(x,y);
                     invalidate();
                     break;
 
@@ -269,51 +278,37 @@ public class IrisFace extends CanvasWatchFaceService {
             }
 
             //COMPLICATIONS
-            if(INFO_DETAILS_MODE == 0) {
 
-                //LEFT COMPLICATION
-                String leftInfo = getLeftComplication();
+            //LEFT COMPLICATION
+            String leftInfo = getLeftComplication();
 
-                Rect batteryBounds = new Rect();
-                mBackgroundPaint.getTextBounds(leftInfo, 0, leftInfo.length(), batteryBounds);
+            Rect batteryBounds = new Rect();
+            mBackgroundPaint.getTextBounds(leftInfo, 0, leftInfo.length(), batteryBounds);
 
-                int dateLeft = (int) (width *(3f/8f) - width *(1f/16f) - (double) batteryBounds.width() / (double) 2);
-                canvas.drawText(leftInfo, dateLeft, height/2 + batteryBounds.height()/2, mBackgroundPaint);
+            int dateLeft = (int) (width *(3f/8f) - width *(1f/16f) - (double) batteryBounds.width() / (double) 2);
+            canvas.drawText(leftInfo, dateLeft, height/2 + batteryBounds.height()/2, mBackgroundPaint);
 
-                //RIGHT COMPLICATIONS
-                String rightInfo = getRightComplication();
+            //RIGHT COMPLICATIONS
+            String rightInfo = getRightComplication();
 
-                Rect dayBounds = new Rect();
-                mBackgroundPaint.getTextBounds(rightInfo, 0, rightInfo.length(), dayBounds);
+            Rect dayBounds = new Rect();
+            mBackgroundPaint.getTextBounds(rightInfo, 0, rightInfo.length(), dayBounds);
 
-                int dayLeft = (int) (width *(5f/8f)+width *(1f/16f) - (double) dayBounds.width() / (double) 2);
-                canvas.drawText(rightInfo, dayLeft, height/2 + dayBounds.height()/2, mBackgroundPaint);
+            int dayLeft = (int) (width *(5f/8f)+width *(1f/16f) - (double) dayBounds.width() / (double) 2);
+            canvas.drawText(rightInfo, dayLeft, height/2 + dayBounds.height()/2, mBackgroundPaint);
 
-                //BOTTOM COMPLICATIONS
-                String bottomInfo = getBottomComplication();
+            //BOTTOM COMPLICATIONS
+            String bottomInfo = getBottomComplication();
 
-                Rect weekBounds = new Rect();
-                mBackgroundPaint.getTextBounds(bottomInfo, 0, bottomInfo.length(), weekBounds);
+            Rect weekBounds = new Rect();
+            mBackgroundPaint.getTextBounds(bottomInfo, 0, bottomInfo.length(), weekBounds);
 
-                int weekLeft = (int) (width /2f - (double) weekBounds.width() / (double) 2);
-                int weekTop = (int) (height *(5f/8f) +height *(1f/16f)+ (double) weekBounds.height() / (double) 2);
-                canvas.drawText(bottomInfo, weekLeft, weekTop, mBackgroundPaint);
-            } else {
-                /*
-                //int weekOfYear = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
-                //DATE TEXT
-                Rect dateBounds = new Rect();
-                Locale current = getResources().getConfiguration().locale;
-                DateFormat formatter = DateFormat.getDateInstance(DateFormat.LONG, current);
-                //String pattern       = ((SimpleDateFormat)formatter).toPattern();
-                String localPattern = ((SimpleDateFormat) formatter).toLocalizedPattern();
-                String format = new SimpleDateFormat(localPattern).format(Calendar.getInstance().getTime()).toUpperCase();
-                mDatePaint.getTextBounds(format, 0, format.length(), dateBounds);
+            int weekLeft = (int) (width /2f - (double) weekBounds.width() / (double) 2);
+            int weekTop = (int) (height *(5f/8f) +height *(1f/16f)+ (double) weekBounds.height() / (double) 2);
+            canvas.drawText(bottomInfo, weekLeft, weekTop, mBackgroundPaint);
 
-                int dateLeft = (int) ((double) width / (double) 2 - (double) dateBounds.width() / (double) 2);
-                canvas.drawText(format, dateLeft, top + A_HEIGHT * 2, mDatePaint);
-                */
-            }
+            //END COMPLICATIONS
+
 
             int RR = ScreenUtils.convertDpToPixels(getApplicationContext(), 10);
             int RRradius = ScreenUtils.convertDpToPixels(getApplicationContext(), 3);
@@ -327,8 +322,8 @@ public class IrisFace extends CanvasWatchFaceService {
 
             canvas.save();
             canvas.rotate(hoursRotation, width / 2, width / 2);
-            canvas.drawLine(width / 2, height / 2 , width / 2, (height / 25)*4, mSecondsCirclePaint);
-            canvas.drawRoundRect(width / 2 - RRradius, (height / 25)*4, width / 2 + RRradius, height / 2f * 4f / 5f, RR, RR, mSecondsCirclePaint);
+            canvas.drawLine(width / 2, height / 2 , width / 2, (height / 25)*3, mSecondsCirclePaint);
+            canvas.drawRoundRect(width / 2 - RRradius, (height / 25)*3, width / 2 + RRradius, height / 2f * 4f / 5f, RR, RR, mSecondsCirclePaint);
             canvas.restore();
 
             //seconds
@@ -532,6 +527,61 @@ public class IrisFace extends CanvasWatchFaceService {
         }
     }
 
+    private void handleTouch(int x, int y) {
+        int W = ScreenUtils.getScreenWidth(getApplicationContext());
+        int H = ScreenUtils.getScreenHeight(getApplicationContext());
+        int DELTA_X =W/5;
+        int DELTA_Y = H/5;
+        //LEFT CENTER
+        if(x <(W/4 + DELTA_X) && x >(W/4 - DELTA_X)) {
+            if(y <(H/2 + DELTA_Y) && y >(H/2 - DELTA_Y)) {
+               handleTouchLeftCenter();
+                return;
+            }
+        }
+        //RIGHT CENTER
+        if(x <(W*3/4 + DELTA_X) && x >(W*3/4 - DELTA_X)) {
+            if(y <(H/2 + DELTA_Y) && y >(H/2 - DELTA_Y)) {
+                handleTouchRightCenter();
+                return;
+            }
+        }
+        //BOTTOM CENTER
+        if(x <(W/2 + DELTA_X) && x >(W/2 - DELTA_X)) {
+            if(y <(H*3/4 + DELTA_Y) && y >(H*3/4 - DELTA_Y)) {
+                handleTouchBottomCenter();
+                return;
+            }
+        }
+    }
+
+    private void handleTouchBottomCenter() {
+        if(BOTTOM_COMPLICATION_MODE == BATTERY) BOTTOM_COMPLICATION_MODE =DAY_NUMBER;
+        else if(BOTTOM_COMPLICATION_MODE == DAY_NUMBER) BOTTOM_COMPLICATION_MODE =DAY_WEEK;
+        else if(BOTTOM_COMPLICATION_MODE == DAY_WEEK) BOTTOM_COMPLICATION_MODE =MONTH;
+        else if(BOTTOM_COMPLICATION_MODE == MONTH) BOTTOM_COMPLICATION_MODE =YEAR;
+        else if(BOTTOM_COMPLICATION_MODE == YEAR) BOTTOM_COMPLICATION_MODE =NONE;
+        else BOTTOM_COMPLICATION_MODE =BATTERY;
+    }
+
+    private void handleTouchRightCenter() {
+        if(RIGHT_COMPLICATION_MODE == BATTERY) RIGHT_COMPLICATION_MODE =DAY_NUMBER;
+        else if(RIGHT_COMPLICATION_MODE == DAY_NUMBER) RIGHT_COMPLICATION_MODE =DAY_WEEK;
+        else if(RIGHT_COMPLICATION_MODE == DAY_WEEK) RIGHT_COMPLICATION_MODE =MONTH;
+        else if(RIGHT_COMPLICATION_MODE == MONTH) RIGHT_COMPLICATION_MODE =YEAR;
+        else if(RIGHT_COMPLICATION_MODE == YEAR) RIGHT_COMPLICATION_MODE =NONE;
+        else RIGHT_COMPLICATION_MODE =BATTERY;
+    }
+
+    private void handleTouchLeftCenter() {
+        if(LEFT_COMPLICATION_MODE == BATTERY) LEFT_COMPLICATION_MODE =DAY_NUMBER;
+        else if(LEFT_COMPLICATION_MODE == DAY_NUMBER) LEFT_COMPLICATION_MODE =DAY_WEEK;
+        else if(LEFT_COMPLICATION_MODE == DAY_WEEK) LEFT_COMPLICATION_MODE =MONTH;
+        else if(LEFT_COMPLICATION_MODE == MONTH) LEFT_COMPLICATION_MODE =YEAR;
+        else if(LEFT_COMPLICATION_MODE == YEAR) LEFT_COMPLICATION_MODE =NONE;
+        else LEFT_COMPLICATION_MODE =BATTERY;
+    }
+
     private static class EngineHandler extends Handler {
         private final WeakReference<IrisFace.Engine> mWeakReference;
 
@@ -553,15 +603,40 @@ public class IrisFace extends CanvasWatchFaceService {
     }
 
     private String getLeftComplication() {
-        return getBatteryLevel()+"%";
+        if(LEFT_COMPLICATION_MODE == BATTERY) return getBatteryLevel()+"%";
+        else if(LEFT_COMPLICATION_MODE == DAY_WEEK) return getWeekDay();
+        else if(LEFT_COMPLICATION_MODE == DAY_NUMBER) return getDayNumber();
+        else if(LEFT_COMPLICATION_MODE == MONTH) return getMonth();
+        else if(LEFT_COMPLICATION_MODE == YEAR) return getYear();
+        else return "";
     }
 
     private String getRightComplication() {
-        return getDayNumber();
+        if(RIGHT_COMPLICATION_MODE == BATTERY) return getBatteryLevel()+"%";
+        else if(RIGHT_COMPLICATION_MODE == DAY_WEEK) return getWeekDay();
+        else if(RIGHT_COMPLICATION_MODE == DAY_NUMBER) return getDayNumber();
+        else if(RIGHT_COMPLICATION_MODE == MONTH) return getMonth();
+        else if(RIGHT_COMPLICATION_MODE == YEAR) return getYear();
+        else return "";
     }
 
     private String getBottomComplication() {
-        return getWeekDay();
+        if(BOTTOM_COMPLICATION_MODE == BATTERY) return getBatteryLevel()+"%";
+        else if(BOTTOM_COMPLICATION_MODE == DAY_WEEK) return getWeekDay();
+        else if(BOTTOM_COMPLICATION_MODE == DAY_NUMBER) return getDayNumber();
+        else if(BOTTOM_COMPLICATION_MODE == MONTH) return getMonth();
+        else if(BOTTOM_COMPLICATION_MODE == YEAR) return getYear();
+        else return "";
+    }
+
+    private String getYear() {
+        mBackgroundPaint.setTextSize(getResources().getDimension(R.dimen.font_size_number));
+        return new SimpleDateFormat("yyyy").format(Calendar.getInstance().getTime()).toUpperCase();
+    }
+
+    private String getMonth() {
+        mBackgroundPaint.setTextSize(getResources().getDimension(R.dimen.font_size_string));
+        return new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime()).toUpperCase();
     }
 
     private String getDayNumber() {

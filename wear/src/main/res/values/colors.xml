@@ -80,7 +80,7 @@
     </array>
 
     <!-- Fruit flavour -->
-    <color name="fruit_flavour_col_1">#FF4E50</color>
+    <color name="fruit_flavour_col_1">#ff0080</color>
     <color name="fruit_flavour_col_2">#F9D423</color>
     <array name="fruit_flavour_array">
         <item>@color/fruit_flavour_col_1</item>
@@ -152,8 +152,8 @@
     </array>
 
     <!-- Deep space -->
-    <color name="deepspace_col_1">#0e4e49</color>
-    <color name="deepspace_col_2">#000000</color>
+    <color name="deepspace_col_2">#0e4e49</color>
+    <color name="deepspace_col_1">#000000</color>
     <array name="deepspace_array">
         <item>@color/deepspace_col_1</item>
         <item>@color/deepspace_col_2</item>
@@ -173,14 +173,6 @@
     <array name="passion_array">
         <item>@color/passion_col_1</item>
         <item>@color/passion_col_2</item>
-    </array>
-
-    <!-- Rocky mountain -->
-    <color name="black_hole_col_1">#212121</color>
-    <color name="black_hole_col_2">#000000</color>
-    <array name="black_hole_array">
-        <item>@color/black_hole_col_1</item>
-        <item>@color/black_hole_col_2</item>
     </array>
 
     <!-- Sky -->
