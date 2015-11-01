@@ -278,35 +278,35 @@ public class IrisFace extends CanvasWatchFaceService {
             }
 
             //COMPLICATIONS
+            if(!mAmbient) {
+                //LEFT COMPLICATION
+                String leftInfo = getLeftComplication();
 
-            //LEFT COMPLICATION
-            String leftInfo = getLeftComplication();
+                Rect batteryBounds = new Rect();
+                mBackgroundPaint.getTextBounds(leftInfo, 0, leftInfo.length(), batteryBounds);
 
-            Rect batteryBounds = new Rect();
-            mBackgroundPaint.getTextBounds(leftInfo, 0, leftInfo.length(), batteryBounds);
+                int dateLeft = (int) (width * (3f / 8f) - width * (1f / 16f) - (double) batteryBounds.width() / (double) 2);
+                canvas.drawText(leftInfo, dateLeft, height / 2 + batteryBounds.height() / 2, mBackgroundPaint);
 
-            int dateLeft = (int) (width *(3f/8f) - width *(1f/16f) - (double) batteryBounds.width() / (double) 2);
-            canvas.drawText(leftInfo, dateLeft, height/2 + batteryBounds.height()/2, mBackgroundPaint);
+                //RIGHT COMPLICATIONS
+                String rightInfo = getRightComplication();
 
-            //RIGHT COMPLICATIONS
-            String rightInfo = getRightComplication();
+                Rect dayBounds = new Rect();
+                mBackgroundPaint.getTextBounds(rightInfo, 0, rightInfo.length(), dayBounds);
 
-            Rect dayBounds = new Rect();
-            mBackgroundPaint.getTextBounds(rightInfo, 0, rightInfo.length(), dayBounds);
+                int dayLeft = (int) (width * (5f / 8f) + width * (1f / 16f) - (double) dayBounds.width() / (double) 2);
+                canvas.drawText(rightInfo, dayLeft, height / 2 + dayBounds.height() / 2, mBackgroundPaint);
 
-            int dayLeft = (int) (width *(5f/8f)+width *(1f/16f) - (double) dayBounds.width() / (double) 2);
-            canvas.drawText(rightInfo, dayLeft, height/2 + dayBounds.height()/2, mBackgroundPaint);
+                //BOTTOM COMPLICATIONS
+                String bottomInfo = getBottomComplication();
 
-            //BOTTOM COMPLICATIONS
-            String bottomInfo = getBottomComplication();
+                Rect weekBounds = new Rect();
+                mBackgroundPaint.getTextBounds(bottomInfo, 0, bottomInfo.length(), weekBounds);
 
-            Rect weekBounds = new Rect();
-            mBackgroundPaint.getTextBounds(bottomInfo, 0, bottomInfo.length(), weekBounds);
-
-            int weekLeft = (int) (width /2f - (double) weekBounds.width() / (double) 2);
-            int weekTop = (int) (height *(5f/8f) +height *(1f/16f)+ (double) weekBounds.height() / (double) 2);
-            canvas.drawText(bottomInfo, weekLeft, weekTop, mBackgroundPaint);
-
+                int weekLeft = (int) (width / 2f - (double) weekBounds.width() / (double) 2);
+                int weekTop = (int) (height * (5f / 8f) + height * (1f / 16f) + (double) weekBounds.height() / (double) 2);
+                canvas.drawText(bottomInfo, weekLeft, weekTop, mBackgroundPaint);
+            }
             //END COMPLICATIONS
 
 
