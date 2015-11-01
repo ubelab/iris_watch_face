@@ -83,7 +83,7 @@
     </array>
 
     <!-- Fruit flavour -->
-    <color name="fruit_flavour_col_1">#FF4E50</color>
+    <color name="fruit_flavour_col_1">#ff0080</color>
     <color name="fruit_flavour_col_2">#F9D423</color>
     <array name="fruit_flavour_array">
         <item>@color/fruit_flavour_col_1</item>
@@ -155,8 +155,8 @@
     </array>
 
     <!-- Deep space -->
-    <color name="deepspace_col_2">#0e4e49</color>
-    <color name="deepspace_col_1">#000000</color>
+    <color name="deepspace_col_2">#00fff2</color>
+    <color name="deepspace_col_1">#030031</color>
     <array name="deepspace_array">
         <item>@color/deepspace_col_1</item>
         <item>@color/deepspace_col_2</item>
