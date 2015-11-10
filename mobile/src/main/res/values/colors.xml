@@ -9,7 +9,7 @@
     <color name="config_activity_header_text_color">#ffffff</color>
     <color name="color_item_label_color">#ffffff</color>
     <color name="color_item_circle_border_color">#424242</color>
-
+    <color name="dark_gray">#4d4d4d</color>
     <!--AURORA-->
     <color name="aurora_col_1">#FF3399</color>
     <color name="aurora_col_2">#6666FF</color>
@@ -211,12 +211,18 @@
     </array>
 
     <!-- North pole sky-->
-    <color name="north_pole_col_1">#0e1c1c</color>
     <color name="north_pole_col_2">#8f33a0</color>
     <color name="north_pole_col_3">#b6ff00</color>
     <array name="north_pole_array">
-        <item>@color/north_pole_col_1</item>
         <item>@color/north_pole_col_2</item>
         <item>@color/north_pole_col_3</item>
+    </array>
+
+    <!-- Soft sky -->
+    <color name="volcano_col_1">#FFA6A6</color>
+    <color name="volcano_col_2">#2E61E6</color>
+    <array name="volcano_array">
+        <item>@color/volcano_col_1</item>
+        <item>@color/volcano_col_2</item>
     </array>
 </resources>

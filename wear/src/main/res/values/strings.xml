@@ -29,8 +29,10 @@
     <string name="grass">Grass</string>
     <string name="flower">Flower</string>
     <string name="north_pole">North pole sky</string>
+    <string name="volcano">Soft sky</string>
 
     <string-array name="gradients_face_array">
+        <item>@string/volcano</item>
         <item>@string/aurora_name</item>
         <item>@string/fire_name</item>
         <item>@string/aqua_name</item>

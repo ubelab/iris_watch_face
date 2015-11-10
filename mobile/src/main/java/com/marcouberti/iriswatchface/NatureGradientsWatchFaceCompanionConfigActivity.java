@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -140,6 +141,18 @@ public class NatureGradientsWatchFaceCompanionConfigActivity extends Activity
         super.onPause();
         Wearable.DataApi.removeListener(mGoogleApiClient, this);
         mGoogleApiClient.disconnect();
+    }
+
+    public void rateThisAppClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=com.marcouberti.iriswatchface"));
+        startActivity(intent);
+    }
+
+    public void seeOtherAppsClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://search?q=pub:Marco Uberti"));
+        startActivity(intent);
     }
 
     private void updateConfigDataItemAndUiOnStartup() {

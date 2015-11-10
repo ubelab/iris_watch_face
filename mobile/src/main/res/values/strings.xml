@@ -4,6 +4,8 @@
 
     <string name="title_no_device_connected">No wearable device is currently connected.</string>
     <string name="ok_no_device_connected">OK</string>
+    <string name="rate_this_app">Rate us</string>
+    <string name="see_other_apps">Explore more</string>
 
     <string name="aurora_name">Aurora</string>
     <string name="fire_name">Fire</string>
@@ -31,8 +33,10 @@
     <string name="grass">Grass</string>
     <string name="flower">Flower</string>
     <string name="north_pole">North pole sky</string>
+    <string name="volcano">Soft sky</string>
 
     <string-array name="gradients_face_array">
+        <item>@string/volcano</item>
         <item>@string/aurora_name</item>
         <item>@string/fire_name</item>
         <item>@string/aqua_name</item>

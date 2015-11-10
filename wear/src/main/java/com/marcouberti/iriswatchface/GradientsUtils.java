@@ -34,6 +34,7 @@ public class GradientsUtils {
         map.put("Grass",24);
         map.put("Flower",25);
         map.put("North pole sky",26);
+        map.put("Soft sky",27);
     }
 
     public static int[] getGradients(Context ctx, int colorID) {
@@ -87,6 +88,8 @@ public class GradientsUtils {
             return ctx.getResources().getIntArray(R.array.flower_lawn_array);
         }else if (colorID == 26) {
             return ctx.getResources().getIntArray(R.array.north_pole_array);
+        }else if (colorID == 27) {
+            return ctx.getResources().getIntArray(R.array.volcano_array);
         }
         else {
             return ctx.getResources().getIntArray(R.array.violet_illusion_array);
